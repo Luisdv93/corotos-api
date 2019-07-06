@@ -1,0 +1,25 @@
+{
+  "name": "vende-tus-corotos",
+  "version": "1.0.0",
+  "description": "API para vendetuscorotos.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luis Vilchez",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.2",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "joi": "^14.3.0",
+    "jsonwebtoken": "^8.4.0",
+    "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
+    "passport-jwt": "^4.0.0",
+    "underscore": "^1.9.1",
+    "uuid": "^3.3.2",
+    "winston": "^3.1.0"
+  }
+}

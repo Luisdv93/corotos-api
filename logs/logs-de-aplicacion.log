@@ -1,0 +1,328 @@
+2018-12-02 05:08 - info: Escuchando en el puerto 3000 
+2018-12-02 05:09 - info: ::1 - GET /usuarios HTTP/1.1 200 4 - 4.385 ms 
+2018-12-02 05:09 - info: Escuchando en el puerto 3000 
+2018-12-02 05:10 - info: Producto falló la validación {
+  "0": {
+    "message": "\"password\" must be a number",
+    "path": [
+      "password"
+    ],
+    "type": "number.base",
+    "context": {
+      "value": "luis123",
+      "key": "password",
+      "label": "password"
+    }
+  }
+}
+2018-12-02 05:10 - info: ::1 - POST /usuarios HTTP/1.1 400 211 - 89.368 ms 
+2018-12-02 05:11 - info: Escuchando en el puerto 3000 
+2018-12-02 05:11 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 90.085 ms 
+2018-12-02 05:11 - info: ::1 - GET /usuarios HTTP/1.1 200 124 - 0.754 ms 
+2018-12-02 05:12 - info: Producto falló la validación {
+  "0": {
+    "message": "\"password\" is not allowed to be empty",
+    "path": [
+      "password"
+    ],
+    "type": "any.empty",
+    "context": {
+      "value": "",
+      "invalids": [
+        ""
+      ],
+      "key": "password",
+      "label": "password"
+    }
+  },
+  "1": {
+    "message": "\"password\" length must be at least 6 characters long",
+    "path": [
+      "password"
+    ],
+    "type": "string.min",
+    "context": {
+      "limit": 6,
+      "value": "",
+      "key": "password",
+      "label": "password"
+    }
+  }
+}
+2018-12-02 05:12 - info: ::1 - POST /usuarios HTTP/1.1 400 211 - 3.280 ms 
+2018-12-02 05:12 - info: Producto falló la validación {
+  "0": {
+    "message": "\"username\" must be a string",
+    "path": [
+      "username"
+    ],
+    "type": "string.base",
+    "context": {
+      "value": 123,
+      "key": "username",
+      "label": "username"
+    }
+  }
+}
+2018-12-02 05:12 - info: ::1 - POST /usuarios HTTP/1.1 400 211 - 1.388 ms 
+2018-12-02 05:12 - info: Producto falló la validación {
+  "0": {
+    "message": "\"email\" must be a valid email",
+    "path": [
+      "email"
+    ],
+    "type": "string.email",
+    "context": {
+      "value": "luisdv9",
+      "key": "email",
+      "label": "email"
+    }
+  }
+}
+2018-12-02 05:12 - info: ::1 - POST /usuarios HTTP/1.1 400 211 - 1.200 ms 
+2018-12-02 05:13 - info: ::1 - GET /usuarios HTTP/1.1 200 124 - 0.566 ms 
+2018-12-02 05:14 - info: Email o username ya existen en la base de datos 
+2018-12-02 05:14 - info: ::1 - POST /usuarios HTTP/1.1 409 53 - 1.188 ms 
+2018-12-02 05:14 - info: Email o username ya existen en la base de datos 
+2018-12-02 05:14 - info: ::1 - POST /usuarios HTTP/1.1 409 53 - 2.298 ms 
+2018-12-02 05:14 - info: Email o username ya existen en la base de datos 
+2018-12-02 05:14 - info: ::1 - POST /usuarios HTTP/1.1 409 53 - 0.976 ms 
+2018-12-02 05:15 - info: Escuchando en el puerto 3000 
+2018-12-02 05:16 - info: Escuchando en el puerto 3000 
+2018-12-02 05:16 - info: Producto falló la validación {
+  "0": "\"username\" is not allowed to be empty",
+  "1": "\"username\" must only contain alpha-numeric characters",
+  "2": "\"username\" length must be at least 3 characters long"
+}
+2018-12-02 05:16 - info: ::1 - POST /usuarios HTTP/1.1 400 211 - 24.948 ms 
+2018-12-02 05:16 - info: Escuchando en el puerto 3000 
+2018-12-02 05:16 - info: Producto falló la validación {
+  "0": "\"username\" is not allowed to be empty",
+  "1": "\"username\" must only contain alpha-numeric characters",
+  "2": "\"username\" length must be at least 3 characters long"
+}
+2018-12-02 05:16 - info: ::1 - POST /usuarios HTTP/1.1 400 211 - 24.406 ms 
+2018-12-02 05:17 - info: Escuchando en el puerto 3000 
+2018-12-02 05:19 - info: Escuchando en el puerto 3000 
+2018-12-02 05:21 - info: Escuchando en el puerto 3000 
+2018-12-02 05:21 - info: Escuchando en el puerto 3000 
+2018-12-02 05:22 - info: Escuchando en el puerto 3000 
+2018-12-02 05:22 - info: ::1 - GET / HTTP/1.1 401 - - 1.951 ms 
+2018-12-02 05:22 - info: ::1 - GET / HTTP/1.1 401 - - 0.581 ms 
+2018-12-02 05:22 - info: ::1 luis GET / HTTP/1.1 200 26 - 3.531 ms 
+2018-12-02 05:23 - info: Escuchando en el puerto 3000 
+2018-12-02 05:24 - info: Escuchando en el puerto 3000 
+2018-12-02 05:24 - info: Escuchando en el puerto 3000 
+2018-12-02 05:25 - info: Escuchando en el puerto 3000 
+2018-12-02 05:26 - info: Escuchando en el puerto 3000 
+2018-12-02 05:26 - info: Escuchando en el puerto 3000 
+2018-12-02 05:27 - info: Escuchando en el puerto 3000 
+2018-12-02 05:27 - info: Escuchando en el puerto 3000 
+2018-12-02 05:27 - info: Escuchando en el puerto 3000 
+2018-12-02 05:28 - info: Usuario luis no existe. No pudo ser autenticado. 
+2018-12-02 05:28 - info: ::1 luis GET / HTTP/1.1 401 - - 3.468 ms 
+2018-12-02 05:28 - info: Producto falló la validación {
+  "0": "\"username\" is not allowed to be empty",
+  "1": "\"username\" must only contain alpha-numeric characters",
+  "2": "\"username\" length must be at least 3 characters long"
+}
+2018-12-02 05:28 - info: ::1 - POST /usuarios HTTP/1.1 400 211 - 17.239 ms 
+2018-12-02 05:28 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 70.228 ms 
+2018-12-02 05:28 - info: ::1 - GET / HTTP/1.1 401 - - 0.176 ms 
+2018-12-02 05:28 - info: Usuario luis completo la autenticación 
+2018-12-02 05:28 - info: ::1 luis GET / HTTP/1.1 304 - - 70.418 ms 
+2018-12-02 05:28 - info: ::1 luis GET /favicon.ico HTTP/1.1 404 150 - 1.474 ms 
+2018-12-02 05:28 - info: Usuario luis completo la autenticación 
+2018-12-02 05:28 - info: ::1 luis GET / HTTP/1.1 304 - - 68.760 ms 
+2018-12-02 05:28 - info: Usuario luis completo la autenticación 
+2018-12-02 05:28 - info: ::1 luis GET / HTTP/1.1 304 - - 69.144 ms 
+2018-12-02 05:28 - info: Usuario luis completo la autenticación 
+2018-12-02 05:28 - info: ::1 luis GET / HTTP/1.1 304 - - 72.137 ms 
+2018-12-02 05:28 - info: Escuchando en el puerto 3000 
+2018-12-02 05:28 - info: Usuario luis no existe. No pudo ser autenticado. 
+2018-12-02 05:28 - info: ::1 luis GET / HTTP/1.1 401 - - 3.578 ms 
+2018-12-02 05:28 - info: Usuario luis no existe. No pudo ser autenticado. 
+2018-12-02 05:28 - info: ::1 luis GET / HTTP/1.1 401 - - 1.045 ms 
+2018-12-02 05:29 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 86.398 ms 
+2018-12-02 05:29 - info: ::1 luis GET / HTTP/1.1 401 - - 0.289 ms 
+2018-12-02 05:29 - info: ::1 luis GET / HTTP/1.1 401 - - 0.268 ms 
+2018-12-02 05:29 - info: ::1 luis GET / HTTP/1.1 401 - - 0.213 ms 
+2018-12-02 05:29 - info: ::1 luis GET / HTTP/1.1 401 - - 0.236 ms 
+2018-12-02 05:29 - info: ::1 - GET / HTTP/1.1 401 - - 0.107 ms 
+2018-12-02 05:29 - info: ::1 luis GET / HTTP/1.1 401 - - 0.219 ms 
+2018-12-02 05:29 - info: Usuario luis falló la autenticación. Contraseña incorrecta. 
+2018-12-02 05:29 - info: ::1 luis GET / HTTP/1.1 401 - - 71.034 ms 
+2018-12-02 05:30 - info: ::1 - GET / HTTP/1.1 401 - - 0.103 ms 
+2018-12-02 05:30 - info: ::1 - GET / HTTP/1.1 401 - - 0.186 ms 
+2018-12-02 05:30 - info: ::1 luis GET / HTTP/1.1 401 - - 0.193 ms 
+2018-12-02 05:30 - info: Usuario luis falló la autenticación. Contraseña incorrecta. 
+2018-12-02 05:30 - info: ::1 luis GET / HTTP/1.1 401 - - 68.336 ms 
+2018-12-02 05:30 - info: Usuario luis completo la autenticación 
+2018-12-02 05:30 - info: ::1 luis GET / HTTP/1.1 304 - - 70.031 ms 
+2018-12-02 05:31 - info: Escuchando en el puerto 3000 
+2018-12-02 05:31 - info: Usuario luis no existe. No pudo ser autenticado. 
+2018-12-02 05:31 - info: ::1 luis GET / HTTP/1.1 401 - - 5.322 ms 
+2018-12-02 05:32 - info: ::1 luis GET / HTTP/1.1 401 - - 0.655 ms 
+2018-12-02 05:32 - info: Usuario luis no existe. No pudo ser autenticado. 
+2018-12-02 05:32 - info: ::1 luis GET / HTTP/1.1 401 - - 0.957 ms 
+2018-12-02 05:32 - info: Escuchando en el puerto 3000 
+2018-12-02 05:32 - info: ::1 - GET / HTTP/1.1 401 - - 1.990 ms 
+2018-12-02 05:32 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 88.515 ms 
+2018-12-02 05:33 - info: Usuario luis completo la autenticación 
+2018-12-02 05:33 - info: ::1 luis GET / HTTP/1.1 304 - - 43120.606 ms 
+2018-12-02 05:33 - info: Escuchando en el puerto 3000 
+2018-12-02 05:34 - info: Escuchando en el puerto 3000 
+2018-12-02 05:34 - info: Usuario luis no existe. No pudo ser autenticado. 
+2018-12-02 05:34 - info: ::1 luis GET / HTTP/1.1 401 - - 3.590 ms 
+2018-12-02 05:34 - info: Usuario luis no existe. No pudo ser autenticado. 
+2018-12-02 05:34 - info: ::1 luis GET / HTTP/1.1 401 - - 1.050 ms 
+2018-12-02 05:35 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 88.435 ms 
+2018-12-02 05:35 - info: ::1 luis GET / HTTP/1.1 - - - - ms 
+2018-12-02 05:35 - info: Usuario luis falló la autenticación. Contraseña incorrecta. 
+2018-12-02 05:35 - info: Usuario luis falló la autenticación. Contraseña incorrecta. 
+2018-12-02 05:36 - info: Escuchando en el puerto 3000 
+2018-12-02 05:36 - info: ::ffff:127.0.0.1 - GET / HTTP/1.1 401 - - 1.980 ms 
+2018-12-02 05:36 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 89.707 ms 
+2018-12-02 05:36 - info: Usuario luis falló la autenticación. Contraseña incorrecta. 
+2018-12-02 05:36 - info: Escuchando en el puerto 3000 
+2018-12-02 05:36 - info: Usuario luis no existe. No pudo ser autenticado. 
+2018-12-02 05:36 - info: Escuchando en el puerto 3000 
+2018-12-02 05:36 - info: Usuario luis no existe. No pudo ser autenticado. 
+2018-12-02 05:37 - info: ::1 luis GET / HTTP/1.1 401 - - 18268.887 ms 
+2018-12-02 05:37 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 94.133 ms 
+2018-12-02 05:37 - info: Email o username ya existen en la base de datos 
+2018-12-02 05:37 - info: ::1 - POST /usuarios HTTP/1.1 409 53 - 1.699 ms 
+2018-12-02 05:38 - info: Escuchando en el puerto 3000 
+2018-12-02 05:38 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 87.860 ms 
+2018-12-02 05:39 - info: Usuario luis falló la autenticación. Contraseña incorrecta. 
+2018-12-02 05:39 - info: ::1 luis GET / HTTP/1.1 401 - - 71.003 ms 
+2018-12-02 05:39 - info: Email o username ya existen en la base de datos 
+2018-12-02 05:39 - info: ::1 - POST /usuarios HTTP/1.1 409 53 - 1.651 ms 
+2018-12-02 05:39 - info: ::1 - GET / HTTP/1.1 401 - - 0.239 ms 
+2018-12-02 05:39 - info: Usuario luis completo la autenticación 
+2018-12-02 05:39 - info: ::1 luis GET / HTTP/1.1 200 26 - 70.281 ms 
+2018-12-15 11:41 - info: Escuchando en el puerto 3000 
+2018-12-15 11:42 - info: Escuchando en el puerto 3000 
+2018-12-15 11:42 - info: Escuchando en el puerto 3000 
+2018-12-15 11:43 - info: Escuchando en el puerto 3000 
+2018-12-15 11:49 - info: Escuchando en el puerto 3000 
+2018-12-15 11:50 - info: Escuchando en el puerto 3000 
+2018-12-15 12:37 - info: Escuchando en el puerto 3000 
+2018-12-15 12:37 - info: Escuchando en el puerto 3000 
+2018-12-15 12:37 - info: Escuchando en el puerto 3000 
+2018-12-15 12:38 - info: Escuchando en el puerto 3000 
+2018-12-15 12:43 - info: Escuchando en el puerto 3000 
+2018-12-15 12:44 - info: Escuchando en el puerto 3000 
+2018-12-15 12:45 - info: ::1 - GET /usuarios/login HTTP/1.1 404 153 - 2.572 ms 
+2018-12-15 12:45 - info: ::1 - POST /usuarios/login HTTP/1.1 404 154 - 0.241 ms 
+2018-12-15 12:45 - info: ::1 - POST /usuarios/login HTTP/1.1 404 154 - 0.175 ms 
+2018-12-15 12:45 - info: Escuchando en el puerto 3000 
+2018-12-15 12:45 - info: ::1 - POST /usuarios/login HTTP/1.1 400 93 - 9.022 ms 
+2018-12-15 12:45 - info: Usuario luis no existe. No pudo ser autenticado. 
+2018-12-15 12:45 - info: ::1 - POST /usuarios/login HTTP/1.1 400 47 - 1.779 ms 
+2018-12-15 01:13 - info: Escuchando en el puerto 3000 
+2018-12-15 01:15 - info: Escuchando en el puerto 3000 
+2018-12-15 01:29 - info: Escuchando en el puerto 3000 
+2018-12-15 01:33 - info: Escuchando en el puerto 3000 
+2018-12-15 01:34 - info: Escuchando en el puerto 3000 
+2018-12-15 01:39 - info: Usuario luis no existe. No pudo ser autenticado. 
+2018-12-15 01:39 - info: ::1 - POST /usuarios/login HTTP/1.1 400 47 - 12.337 ms 
+2018-12-15 05:00 - info: Escuchando en el puerto 3000 
+2018-12-15 05:00 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 144.540 ms 
+2018-12-15 05:00 - info: Usuario luis falló la autenticación. Contraseña incorrecta. 
+2018-12-15 05:00 - info: ::1 - POST /usuarios/login HTTP/1.1 400 84 - 74.400 ms 
+2018-12-15 05:00 - info: Usuario luis completo la autenticación 
+2018-12-15 05:00 - info: ::1 - POST /usuarios/login HTTP/1.1 200 199 - 76.548 ms 
+2018-12-15 05:01 - info: ::1 - GET / HTTP/1.1 500 1374 - 2.564 ms 
+2018-12-15 05:02 - info: ::1 - GET / HTTP/1.1 500 1374 - 0.774 ms 
+2018-12-15 05:02 - info: Escuchando en el puerto 3000 
+2018-12-15 05:02 - info: JWT token no es valido. Usuario con id 0511f967-6f0c-46af-8c26-b3a1f2bd7b25 no pudo ser autenticado 
+2018-12-15 05:02 - info: ::1 - GET / HTTP/1.1 401 - - 7.620 ms 
+2018-12-15 05:03 - info: JWT token no es valido. Usuario con id 0511f967-6f0c-46af-8c26-b3a1f2bd7b25 no pudo ser autenticado 
+2018-12-15 05:03 - info: ::1 - GET / HTTP/1.1 401 - - 1.881 ms 
+2018-12-15 05:03 - info: ::1 - GET / HTTP/1.1 401 - - 0.184 ms 
+2018-12-15 05:03 - info: JWT token no es valido. Usuario con id 0511f967-6f0c-46af-8c26-b3a1f2bd7b25 no pudo ser autenticado 
+2018-12-15 05:03 - info: ::1 - GET / HTTP/1.1 401 - - 0.936 ms 
+2018-12-15 05:04 - info: ::1 - POST /login HTTP/1.1 404 145 - 1.060 ms 
+2018-12-15 05:04 - info: Usuario luis no existe. No pudo ser autenticado. 
+2018-12-15 05:04 - info: ::1 - POST /usuarios/login HTTP/1.1 400 47 - 8.400 ms 
+2018-12-15 05:05 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 80.243 ms 
+2018-12-15 05:05 - info: Usuario luis completo la autenticación 
+2018-12-15 05:05 - info: ::1 - POST /usuarios/login HTTP/1.1 200 199 - 72.338 ms 
+2018-12-15 05:05 - info: Usuario luis suministró un token valido. Autenticación completada 
+2018-12-15 05:05 - info: [object Object] 
+2018-12-15 05:05 - info: ::1 - GET /?= HTTP/1.1 200 26 - 3.179 ms 
+2018-12-15 05:05 - info: ::1 - GET /?= HTTP/1.1 401 - - 0.903 ms 
+2018-12-15 05:05 - info: Usuario luis suministró un token valido. Autenticación completada 
+2018-12-15 05:05 - info: [object Object] 
+2018-12-15 05:05 - info: ::1 - GET /?= HTTP/1.1 200 26 - 1.790 ms 
+2018-12-15 05:06 - info: Usuario luis suministró un token valido. Autenticación completada 
+2018-12-15 05:06 - info: [object Object] 
+2018-12-15 05:06 - info: ::1 - GET /?= HTTP/1.1 200 26 - 1.470 ms 
+2018-12-15 05:07 - info: Escuchando en el puerto 3000 
+2018-12-15 05:07 - info: Escuchando en el puerto 3000 
+2018-12-15 05:07 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 86.986 ms 
+2018-12-15 05:07 - info: Usuario luis completo la autenticación 
+2018-12-15 05:07 - info: ::1 - POST /usuarios/login HTTP/1.1 200 199 - 74.605 ms 
+2018-12-15 05:07 - info: Usuario luis suministró un token valido. Autenticación completada 
+2018-12-15 05:07 - info: [object Object] 
+2018-12-15 05:07 - info: ::1 - GET /?= HTTP/1.1 200 26 - 6.170 ms 
+2018-12-15 05:08 - info: Escuchando en el puerto 3000 
+2018-12-15 05:08 - info: Escuchando en el puerto 3000 
+2018-12-15 05:08 - info: Escuchando en el puerto 3000 
+2018-12-15 05:08 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 86.896 ms 
+2018-12-15 05:08 - info: Usuario luis completo la autenticación 
+2018-12-15 05:08 - info: ::1 - POST /usuarios/login HTTP/1.1 200 199 - 74.460 ms 
+2018-12-15 05:09 - info: Usuario luis suministró un token valido. Autenticación completada 
+2018-12-15 05:09 - info: [object Object] 
+2018-12-15 05:09 - info: ::1 - GET /?= HTTP/1.1 200 26 - 7.929 ms 
+2018-12-15 05:09 - info: Escuchando en el puerto 3000 
+2018-12-15 05:09 - info: JWT token no es valido. Usuario con id 51f22dd8-3928-44a1-98b1-91c88b442885 no pudo ser autenticado 
+2018-12-15 05:09 - info: ::1 - GET /?= HTTP/1.1 401 - - 11.508 ms 
+2018-12-15 05:09 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 84.648 ms 
+2018-12-15 05:09 - info: Usuario luis completo la autenticación 
+2018-12-15 05:09 - info: ::1 - POST /usuarios/login HTTP/1.1 200 199 - 75.097 ms 
+2018-12-15 05:09 - info: Usuario luis suministró un token valido. Autenticación completada 
+2018-12-15 05:09 - info: [object Object] 
+2018-12-15 05:09 - info: ::1 - GET /?= HTTP/1.1 200 26 - 5.972 ms 
+2018-12-15 05:10 - info: Escuchando en el puerto 3000 
+2018-12-15 05:10 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 85.219 ms 
+2018-12-15 05:10 - info: Usuario luis completo la autenticación 
+2018-12-15 05:10 - info: ::1 - POST /usuarios/login HTTP/1.1 200 199 - 74.146 ms 
+2018-12-15 05:10 - info: Usuario luis suministró un token valido. Autenticación completada 
+2018-12-15 05:10 - info: [object Object] 
+2018-12-15 05:10 - info: ::1 - GET /?= HTTP/1.1 200 26 - 9.602 ms 
+2018-12-15 05:10 - info: Escuchando en el puerto 3000 
+2018-12-15 05:11 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 86.443 ms 
+2018-12-15 05:11 - info: Usuario luis completo la autenticación 
+2018-12-15 05:11 - info: ::1 - POST /usuarios/login HTTP/1.1 200 199 - 74.517 ms 
+2018-12-15 05:11 - info: Usuario luis suministró un token valido. Autenticación completada 
+2018-12-15 05:11 - info: [object Object] 
+2018-12-15 05:11 - info: ::1 - GET /?= HTTP/1.1 200 26 - 5.389 ms 
+2018-12-15 05:12 - info: Escuchando en el puerto 3000 
+2018-12-15 05:13 - info: Escuchando en el puerto 3000 
+2018-12-15 05:13 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 87.061 ms 
+2018-12-15 05:13 - info: Usuario luis completo la autenticación 
+2018-12-15 05:13 - info: ::1 - POST /usuarios/login HTTP/1.1 200 199 - 73.752 ms 
+2018-12-15 05:13 - info: Usuario luis suministró un token valido. Autenticación completada 
+2018-12-15 05:13 - info: ::1 - GET /?= HTTP/1.1 500 1363 - 6.948 ms 
+2018-12-15 05:13 - info: Escuchando en el puerto 3000 
+2018-12-15 05:13 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 85.231 ms 
+2018-12-15 05:13 - info: Usuario luis completo la autenticación 
+2018-12-15 05:13 - info: ::1 - POST /usuarios/login HTTP/1.1 200 199 - 73.240 ms 
+2018-12-15 05:13 - info: Usuario luis suministró un token valido. Autenticación completada 
+2018-12-15 05:13 - info: {"username":"luis","id":"96183970-e1af-43b9-98e6-0dd8ed36ac19"} 
+2018-12-15 05:13 - info: ::1 - GET /?= HTTP/1.1 200 26 - 6.234 ms 
+2018-12-15 05:14 - info: Escuchando en el puerto 3000 
+2018-12-15 05:14 - info: ::1 - POST /usuarios HTTP/1.1 201 27 - 85.475 ms 
+2018-12-15 05:14 - info: Usuario luis completo la autenticación 
+2018-12-15 05:14 - info: ::1 - POST /usuarios/login HTTP/1.1 200 199 - 74.609 ms 
+2018-12-15 05:14 - info: Usuario luis suministró un token valido. Autenticación completada 
+2018-12-15 05:14 - info: [object Object] 
+2018-12-15 05:14 - info: ::1 - GET /?= HTTP/1.1 200 26 - 5.121 ms 
+2018-12-15 05:25 - info: Escuchando en el puerto 3000 
+2018-12-15 05:33 - info: Escuchando en el puerto 3000 
+2018-12-15 05:37 - info: Escuchando en el puerto 3000 
+2018-12-27 08:50 - info: Escuchando en el puerto 3000 
+2018-12-28 05:08 - info: Escuchando en el puerto 3000 
+2019-07-05 02:20 - info: Escuchando en el puerto 3000 
