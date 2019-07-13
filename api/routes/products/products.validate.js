@@ -1,7 +1,7 @@
 const Joi = require("joi");
 const log = require("../../../utils/logger");
 
-const blueprintProducto = Joi.object().keys({
+const productSchema = Joi.object().keys({
   titulo: Joi.string()
     .max(100)
     .required(),
@@ -16,31 +16,31 @@ const blueprintProducto = Joi.object().keys({
 });
 
 module.exports = (req, res, next) => {
-  let resultado = Joi.validate(req.body, blueprintProducto, {
+  let result = Joi.validate(req.body, productSchema, {
     abortEarly: false,
     convert: false
   });
 
-  if (resultado.error === null) {
+  if (result.error === null) {
     next();
   } else {
-    let erroresDeValidacion = resultado.error.details.reduce(
-      (acumulador, error) => {
-        return acumulador + `[${error.message}] `;
+    let validationErrors = result.error.details.reduce(
+      (acc, error) => {
+        return acc + `[${error.message}] `;
       },
       ""
     );
 
     log.warn(
-      `El siguiente producto no pasó la validacion: ${JSON.stringify(
+      `The following producto didn't pass the validation: ${JSON.stringify(
         req.body
-      )} ${erroresDeValidacion}`
+      )} ${validationErrors}`
     );
 
     res
       .status(400)
       .send(
-        `El producto en el body debe especificar titulo, precio y moneda. Errores en tu request: ${erroresDeValidacion}`
+        `The product must specify titulo, price and coin. Your errors: ${erroresDeValidacion}`
       );
   }
 };

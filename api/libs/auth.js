@@ -1,32 +1,34 @@
 const _ = require("underscore");
-const log = require("../../utils/logger");
-const usuarios = require("../../database").usuarios;
 const passportJWT = require("passport-jwt");
 
+const log = require("../../utils/logger");
+const users = require("../../database").users;
+const config = require("../../config")
+
 const jwtOptions = {
-  secretOrKey: "es un secretoooo (8)",
+  secretOrKey: config.jwt.secret,
   jwtFromRequest: passportJWT.ExtractJwt.fromAuthHeaderAsBearerToken()
 };
 
 module.exports = new passportJWT.Strategy(jwtOptions, (jwtPayload, next) => {
-  let index = _.findIndex(usuarios, usuario => usuario.id === jwtPayload.id);
+  let index = _.findIndex(users, usuario => usuario.id === jwtPayload.id);
 
   if (index === -1) {
     log.info(
-      `JWT token no es valido. Usuario con id ${
+      `The JWT is not valid. User with ID ${
         jwtPayload.id
-      } no pudo ser autenticado`
+      } couldn't be authenticated.`
     );
     next(null, false);
   } else {
     log.info(
-      `Usuario ${
-        usuarios[index].username
-      } suministró un token valido. Autenticación completada`
+      `User ${
+        users[index].username
+      } provided a valid JWT. Authentication completed.`
     );
     next(null, {
-      username: usuarios[index].username,
-      id: usuarios[index].id
+      username: users[index].username,
+      id: users[index].id
     });
   }
 });

@@ -1,13 +1,21 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const productosRouter = require("./api/recursos/productos/productos.routes");
-const usuariosRouter = require("./api/recursos/usuarios/usuarios.routes");
 const morgan = require("morgan");
 const passport = require("passport");
+const mongoose = require("mongoose");
+
 const logger = require("./utils/logger");
 const authJWT = require("./api/libs/auth");
+const config = require("./config");
+const routes = require("./api/routes");
 
 passport.use(authJWT);
+
+mongoose.connect(`mongodb://127.0.0.1:27017/vendetuscorotos`)
+mongoose.connection.on("error", () => {
+  logger.error("The MongoDB connection has failed");
+  process.exit(1);
+})
 
 const app = express();
 
@@ -23,9 +31,8 @@ app.use(
 
 app.use(passport.initialize());
 
-app.use("/productos", productosRouter);
-app.use("/usuarios", usuariosRouter);
+app.use(routes);
 
-app.listen(3000, () => {
-  logger.info("Escuchando en el puerto 3000");
+app.listen(config.port, () => {
+  logger.info("Listening on port 3000");
 });

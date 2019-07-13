@@ -1,12 +1,12 @@
-exports.productos = [
+exports.products = [
   {
     id: "123123",
-    titulo: "MacBook Pro 13 inches",
-    precio: 1300,
-    moneda: "USD"
+    title: "MacBook Pro 13 inches",
+    price: 1300,
+    coin: "USD"
   },
-  { id: "aa12ab", titulo: "Taza de cafe", precio: 10, moneda: "USD" },
-  { id: "kfhdg2", titulo: "Microfono Blue Yeti", precio: 100, moneda: "USD" }
+  { id: "aa12ab", title: "Taza de cafe", price: 10, coin: "USD" },
+  { id: "kfhdg2", title: "Microfono Blue Yeti", price: 100, coin: "USD" }
 ];
 
-exports.usuarios = [];
+exports.users = [];
