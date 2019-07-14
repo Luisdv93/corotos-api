@@ -1,103 +1,151 @@
 const express = require("express");
-const _ = require("underscore");
-const uuidv4 = require("uuid/v4");
 const passport = require("passport");
 const validateProduct = require("./products.validate");
-const products = require("../../../database").products;
 const log = require("../../../utils/logger");
+const validateId = require("../../../utils/validateId");
+const productController = require("./products.controller");
 
 const jwtAuthenticate = passport.authenticate("jwt", { session: false });
 const productsRouter = express.Router();
 
-productsRouter.get("/", (_req, res) => {
-  res.json(products);
+productsRouter.get("/", jwtAuthenticate, (_req, res) => {
+  productController.getProducts().then(products => {
+    log.info("The products list was consulted", products);
+
+    res.json(products);
+  }).catch(err => {
+    log.error("The products list couldn't be consulted", err);
+
+    res.status(500).send("An error ocurred while trying to list the products from the database.");
+  });
 });
 
 productsRouter.post("/", [jwtAuthenticate, validateProduct], (req, res) => {
-  let newProduct = {
-    ...req.body,
-    id: uuidv4(),
-    dueño: req.user.username
-  };
-
-  products.push(newProduct);
-
-  log.info("Product added to the products collection.", newProduct);
   
-  res.status(201).json(newProduct);
+  productController.createProduct(req.body, req.user.username).then(newProduct => {
+    log.info("Product added to the products collection.", newProduct);
+
+    res.status(201).json(newProduct);
+  }).catch(err => {
+    log.error("Product couldn't be created", err);
+    
+    res.status(500).send("An error ocurred while trying to create a product.");
+  });
 });
 
-productsRouter.get("/:id", (req, res) => {
-  for (let product of products) {
-    if (product.id === req.params.id) {
-      res.json(product);
+productsRouter.get("/:id", [jwtAuthenticate, validateId], (req, res) => {
+  const id = req.params.id;
+
+  productController.getProduct(id).then(product => {
+    if (!product) {
+      log.error("The product consulted doesn't exist.");
+
+      res.status(404).send(`The product with id ${id} doesn't exist`);
       return;
     }
-  }
+    
+    log.info("A product was consulted.");
 
-  res.status(404).send(`The product with id ${req.params.id} doesn't exist`);
+    res.json(product);
+  }).catch(err => {
+    log.error("An error ocurred while consulting the product.", err);
+
+    res.status(500).send("An error ocurred while consulting the product.");
+  });
 });
 
-productsRouter.put("/:id", [jwtAuthenticate, validateProduct], (req, res) => {
-  let newProduct = {
-    ...req.body,
-    id: req.params.id,
-    owner: req.user.username
-  };
+productsRouter.put("/:id", [jwtAuthenticate, validateId, validateProduct], async  (req, res) => {
+  let id = req.params.id;
+  let user = req.user.username;
+  let productToReplace;
 
-  let index = _.findIndex(products, product => product.id === newProduct.id);
+  try {
+    productToReplace = await productController.getProduct(id);
+  } catch (error) {
+    log.error(`An error occurred while trying to edit the product with id [${id}]`, error);
 
-  if (index !== -1) {
-    if (products[index].owner !== newProduct.owner) {
-      log.info(`User ${req.user.username} is not owner of the product with ID ${newProduct.id}. The real owner is ${products[index].owner}. The request won't be processed.`);
+    res.status(500).send(`An error occurred while trying to edit the product with id [${id}]`);
 
-      res.status(401).send(`You are not the owner of the product with ID ${newProduct.id}. You can only update products created by you.`)
-
-      return;
-    }
-
-    products[index] = newProduct;
-
-    log.info(
-      `Product with ID [${newProduct.id}] was replaced with the new product.`,
-      newProduct
-    );
-
-    res.status(200).json(newProduct);
     return;
   }
 
-  res.status(404).send(`The product with ID ${newProduct.id} doesn't exist.`);
-});
-
-productsRouter.delete("/:id", jwtAuthenticate, (req, res) => {
-  let indexToDelete = _.findIndex(
-    products,
-    product => product.id === req.params.id
-  );
-
-  if (indexToDelete === -1) {
-    log.warn(`Product with ID [${req.params.id}] doesn't exist. Nothing to delete.`);
+  if (!productToReplace) {
+    log.info(`Product with id [${id}] doesn't exist. Nothing to edit.`);
 
     res
       .status(404)
-      .send(`Product with ID [${req.params.id}] doesn't exist. Nothing to delete.`);
+      .send(`Product with id [${id}] doesn't exist. Nothing to edit.`);
     return;
   }
 
-  if (products[indexToDelete].owner !== req.user.username) {
-    log.info(`User ${req.user.username} is not owner of the product with ID ${products[indexToDelete].id}.The real owner is ${products[indexToDelete].owner}.The request won't be processed.`);
+  if (productToReplace.owner !== user) {
+    log.info(`User ${user} is not owner of the product with id ${id}.The real owner is ${productToReplace.owner}.The request won't be processed.`);
 
-    res.status(401).send(`You are not the owner of the product with ID ${products[indexToDelete].id }.You can only delete products created by you.`)
+    res.status(401).send(`You are not the owner of the product with id ${id}.You can only edit products created by you.`)
 
     return;
   }
 
-  log.info(`Product with ID [${req.params.id}] was deleted`)
+  let updatedProduct;
 
-  let deleted = products.splice(indexToDelete, 1);
+  try {
+    updatedProduct = await productController.updatedProduct(id, productToReplace, user)
 
-  res.json(deleted);
+    log.info(`Product with id [${id}] was updated`, updatedProduct);
+
+    res.json(updatedProduct);
+  } catch (error) {
+    log.error(`An error occurred while trying to update the product with id [${id}]`, error);
+
+    res.status(500).send(`An error occurred while trying to update the product with id [${id}]`);
+  }
+});
+
+productsRouter.delete("/:id", [jwtAuthenticate, validateId], async (req, res) => {
+  const id = req.params.id;
+
+  let productToDelete;
+
+  try {
+    productToDelete = await productController.getProduct(id);
+  } catch (error) {
+    log.error(`An error occurred while trying to delete the product with id [${id}]`, error);
+
+    res.status(500).send(`An error occurred while trying to delete the product with id [${id}]`);
+
+    return;
+  }
+
+  if (!productToDelete) {
+    log.info(`Product with id [${id}] doesn't exist. Nothing to delete.`);
+
+    res
+      .status(404)
+      .send(`Product with id [${id}] doesn't exist. Nothing to delete.`);
+    return;
+  }
+
+  let user = req.user.username;
+
+  if (productToDelete.owner !== user) {
+    log.info(`User ${user} is not owner of the product with id ${id}.The real owner is ${productToDelete.owner}.The request won't be processed.`);
+
+    res.status(401).send(`You are not the owner of the product with id ${id}.You can only delete products created by you.`)
+
+    return;
+  }
+
+  try {
+    let deletedProduct = await productController.deleteProduct(id);
+
+    log.info(`Product with id [${id}] was deleted`);
+
+    res.json(deletedProduct);
+  } catch (error) {
+    log.error(`An error occurred while trying to delete the product with id [${id}]`, error);
+
+    res.status(500).send(`An error occurred while trying to delete the product with id [${id}]`);
+  }
 });
 
 module.exports = productsRouter;

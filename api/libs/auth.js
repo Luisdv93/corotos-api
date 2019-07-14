@@ -1,9 +1,8 @@
-const _ = require("underscore");
 const passportJWT = require("passport-jwt");
 
 const log = require("../../utils/logger");
-const users = require("../../database").users;
-const config = require("../../config")
+const config = require("../../config");
+const userController = require("../routes/users/users.controller");
 
 const jwtOptions = {
   secretOrKey: config.jwt.secret,
@@ -11,24 +10,32 @@ const jwtOptions = {
 };
 
 module.exports = new passportJWT.Strategy(jwtOptions, (jwtPayload, next) => {
-  let index = _.findIndex(users, usuario => usuario.id === jwtPayload.id);
-
-  if (index === -1) {
-    log.info(
-      `The JWT is not valid. User with ID ${
+  userController.getUser({id: jwtPayload.id })
+  .then(user => {
+    if (!user) {
+      log.info(
+        `The JWT is not valid. User with id [${
         jwtPayload.id
-      } couldn't be authenticated.`
-    );
-    next(null, false);
-  } else {
+        }] doesn't exist.`
+      );
+      next(null, false);
+      return;
+    }
+
     log.info(
-      `User ${
-        users[index].username
-      } provided a valid JWT. Authentication completed.`
+      `User [${
+      user.username
+      }] provided a valid JWT. Authentication completed.`
     );
+
     next(null, {
-      username: users[index].username,
-      id: users[index].id
+      username: user.username,
+      id: user.id
     });
-  }
+  }).catch(error => {
+    log.error("An error occurred while validating a token", error);
+
+    next(error);
+  })
+
 });

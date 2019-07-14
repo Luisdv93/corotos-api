@@ -1,38 +1,48 @@
 const express = require("express");
-const _ = require("underscore");
-const uuidv4 = require("uuid/v4");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const log = require("../../../utils/logger");
 const validateUser = require("./users.validate").validateUser;
+const bodyToLowercase = require("./bodyToLowercase")
 const validateLogin = require("./users.validate")
   .validateLogin;
-const users = require("../../../database").users;
-const config = require("../../../config")
+const config = require("../../../config");
+const userController = require("./users.controller");
 
 const usersRouter = express.Router();
 
-usersRouter.get("/", (_req, res) => {
-  res.json(users);
+usersRouter.get("/", async (_req, res) => {
+  try {
+    const users = await userController.getUsers();
+
+    log.info("The users list was consulted", users);
+
+    res.json(users);
+  } catch (error) {
+    log.error("The users list couldn't be consulted", err);
+
+    res.status(500).send("An error ocurred while trying to list the users from the database.");
+  }
 });
 
-usersRouter.post("/", validateUser, (req, res) => {
+usersRouter.post("/", [validateUser, bodyToLowercase], async (req, res) => {
   let newUser = req.body;
 
-  let index = _.findIndex(users, user => {
-    return (
-      user.userName === newUser.userName ||
-      user.email === newUser.email
-    );
-  });
+  let userExists;
 
-  if (index !== -1) {
-    log.info("Email or username already exist.");
+  try {
+    userExists = await userController.checkUser(newUser.username, newUser.email);
+  } catch (error) {
+    log.error(`An error ocurred while trying to verify if Email [${newUser.email}] or username [${newUser.username}] exist.`, err);
 
-    res
-      .status(409)
-      .send("The Email or the Username are already associated to an account.");
+    res.status(500).send("An error ocurred while trying to create your account.");
+  }
+
+  if (userExists) {
+    log.warn(`Email [${newUser.email}] or username [${newUser.username}] already exist in the database.`);
+
+    res.status(409).send("The email or the username are already associated to another account.");
 
     return;
   }
@@ -44,77 +54,88 @@ usersRouter.post("/", validateUser, (req, res) => {
         err
       );
 
-      res.status(500).send("An error occurred processing the user creation.");
+      res.status(500).send("An error occurred while creating your account.");
 
       return;
     }
 
-    users.push({
-      username: newUser.username,
-      email: newUser.email,
-      password: hashedPassword,
-      id: uuidv4()
-    });
+    try {
+      const registeredUser = await userController.createUser(newUser, hashedPassword);
 
-    res.status(201).send("User created successfully.");
+      res.status(201).send("User created successfully.", registeredUser);
+    } catch (error) {
+      log.error(
+        "An error ocurred while trying to create a new user",
+        err
+      );
+
+      res.status(500).send("An error ocurred while trying to create your account.");
+    }
   });
 });
 
-usersRouter.post("/login", validateLogin, (req, res) => {
+usersRouter.post("/login", [validateLogin, bodyToLowercase], async (req, res) => {
   let userRequest = req.body;
+  let registeredUser;
 
-  let index = _.findIndex(
-    users,
-    user => user.username === userRequest.username
-  );
+  try {
+    registeredUser = await userController.getUser({
+      username: userRequest.username
+    })
+  } catch (error) {
+    log.error(`An error occurred while trying to check if the user [${userRequest.username}] already exist.`, error);
 
-  if (index === -1) {
-    log.info(
-      `User ${
-        userRequest.username
-      } doesn't exist. The authentication couldn't be perfomed.`
-    );
+    res.status(500).send("An error occurred during the login process");
+  }
 
-    res.status(400).send("Invalid credentials. The user doesn't exist.");
+  if (!registeredUser) {
+    log.info(`User [${userRequest.username}] doesn't exist. Authentication failed.`);
+
+    res.status(400).send("Invalid credentials. Make sure the username and email are correct.");
 
     return;
   }
 
-  let hashedPassword = users[index].password;
+  let correctPassword;
 
-  bcrypt.compare(
-    userRequest.password,
-    hashedPassword,
-    (_err, same) => {
-      if (same) {
-        let token = jwt.sign(
-          {
-            id: users[index].id
-          },
-          config.jwt.secret,
-          { expiresIn: config.jwt.expirationTime }
-        );
+  try {
+    correctPassword = await bcrypt.compare(userRequest.password, registeredUser.password);
+  } catch (error) {
+    log.error(`An occurred while trying to verify if the password is correct.`, error);
 
-        log.info(
-          `User ${userRequest.username} completed the authentication.`
-        );
+    res.status(500).send("An error occurred during the login process.");
 
-        res.status(200).json({ token });
-      } else {
-        log.info(
-          `User ${
-            userRequest.username
-          } failed the authentication. Incorrect password.`
-        );
+    return;
+  }
 
-        res
-          .status(400)
-          .send(
-            "Invalid credentials. Make sure the username and the password are correct."
-          );
-      }
-    }
-  );
+  if (correctPassword) {
+    let token = jwt.sign(
+      {
+        id: registeredUser.id
+      },
+      config.jwt.secret,
+      { expiresIn: config.jwt.expirationTime }
+    );
+
+    log.info(
+      `User ${userRequest.username} completed the authentication.`
+    );
+
+    res.status(200).json({ ...registeredUser, token });
+  } else {
+    log.info(
+      `User ${
+      userRequest.username
+      } failed the authentication. Incorrect password.`
+    );
+
+    res
+      .status(400)
+      .send(
+        "Invalid credentials. Make sure the username and the password are correct."
+      );
+  }
+
 });
 
 module.exports = usersRouter;
