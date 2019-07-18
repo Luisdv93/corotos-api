@@ -3,5 +3,5 @@ module.exports = {
     secret: "This is super obvious secret PROD",
     expirationTime: "12h"
   },
-  disableLogs: false
+  disableLogs: true
 };

@@ -2,32 +2,30 @@ const enviroment = process.env.NODE_ENV || "development";
 
 const baseConfig = {
   jwt: {},
-  port: 3000 
-}
+  port: 3000,
+  disableLogs: false
+};
 
 let enviromentConfig = {};
 
 switch (enviroment) {
-  case "development":
   case "dev":
-  case "desarrollo":
-    enviromentConfig = require("./dev")
-    break
+    enviromentConfig = require("./dev");
+    break;
 
-  case "production":
   case "prod":
-  case "produccion":
-    enviromentConfig = require("./prod")
-    break
+    enviromentConfig = require("./prod");
+    break;
+
+  case "test":
+    enviromentConfig = require("./test");
+    break;
 
   default:
-    enviromentConfig = require("./dev")
+    enviromentConfig = require("./dev");
 }
-
-console.log({...baseConfig,
-  ...enviromentConfig})
 
 module.exports = {
   ...baseConfig,
   ...enviromentConfig
-}
+};

@@ -8,14 +8,19 @@ const logger = require("./utils/logger");
 const authJWT = require("./api/libs/auth");
 const config = require("./config");
 const routes = require("./api/routes");
+const errorHandlers = require("./api/libs/errorHandlers");
 
 passport.use(authJWT);
 
-mongoose.connect(`mongodb://127.0.0.1:27017/vendetuscorotos`)
+mongoose.connect(`mongodb://127.0.0.1:27017/corotos`, {
+  useNewUrlParser: true,
+  useFindAndModify: false
+});
+
 mongoose.connection.on("error", () => {
   logger.error("The MongoDB connection has failed");
   process.exit(1);
-})
+});
 
 const app = express();
 
@@ -33,6 +38,19 @@ app.use(passport.initialize());
 
 app.use(routes);
 
-app.listen(config.port, () => {
+app.use(errorHandlers.processDbErrors);
+
+if (config.enviroment === "prod") {
+  app.use(errorHandlers.prodErrors);
+} else {
+  app.use(errorHandlers.devErrors);
+}
+
+const server = app.listen(config.port, () => {
   logger.info("Listening on port 3000");
 });
+
+module.exports = {
+  app,
+  server
+};

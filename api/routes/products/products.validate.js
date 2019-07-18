@@ -2,14 +2,14 @@ const Joi = require("joi");
 const log = require("../../../utils/logger");
 
 const productSchema = Joi.object().keys({
-  titulo: Joi.string()
+  title: Joi.string()
     .max(100)
     .required(),
-  precio: Joi.number()
+  price: Joi.number()
     .positive()
     .precision(2)
     .required(),
-  moneda: Joi.string()
+  coin: Joi.string()
     .length(3)
     .uppercase()
     .required()
@@ -24,15 +24,12 @@ module.exports = (req, res, next) => {
   if (result.error === null) {
     next();
   } else {
-    let validationErrors = result.error.details.reduce(
-      (acc, error) => {
-        return acc + `[${error.message}] `;
-      },
-      ""
-    );
+    let validationErrors = result.error.details.reduce((acc, error) => {
+      return acc + `[${error.message}] `;
+    }, "");
 
     log.warn(
-      `The following producto didn't pass the validation: ${JSON.stringify(
+      `The following product didn't pass the validation: ${JSON.stringify(
         req.body
       )} ${validationErrors}`
     );
@@ -40,7 +37,7 @@ module.exports = (req, res, next) => {
     res
       .status(400)
       .send(
-        `The product must specify titulo, price and coin. Your errors: ${erroresDeValidacion}`
+        `The product must specify title, price and coin. Your errors: ${validationErrors}`
       );
   }
 };

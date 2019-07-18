@@ -1,4 +1,5 @@
 const winston = require("winston");
+const config = require("../config/index");
 
 /* 
   error: 0, 
@@ -31,7 +32,7 @@ module.exports = winston.createLogger({
       filename: `${__dirname}/../logs/logs-de-aplicacion.log`
     }),
     new winston.transports.Console({
-      level: "debug",
+      level: config.disableLogs ? "error" : "debug",
       handleExceptions: true,
       format: winston.format.combine(
         winston.format.colorize(),
