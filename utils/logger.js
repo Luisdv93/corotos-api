@@ -29,7 +29,7 @@ module.exports = winston.createLogger({
           }`;
         })
       ),
-      filename: `${__dirname}/../logs/logs-de-aplicacion.log`
+      filename: `${__dirname}/../logs/logs.log`
     }),
     new winston.transports.Console({
       level: config.disableLogs ? "error" : "debug",
