@@ -21,7 +21,7 @@
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "file-type": "^12.0.1",
+    "file-type": "^16.5.4",
     "joi": "^14.3.0",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.7.5",
