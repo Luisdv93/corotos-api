@@ -19,8 +19,8 @@
   "dependencies": {
     "aws-sdk": "^2.494.0",
     "bcrypt": "^3.0.2",
-    "body-parser": "^1.18.3",
-    "express": "^4.16.3",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
     "file-type": "^12.0.1",
     "joi": "^14.3.0",
     "jsonwebtoken": "^8.4.0",
